@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: Show secrets
         run: |
-          echo ${{ secrets.TF_VAR_access_key }}
-          echo ${{ secrets.TF_VAR_secret_key }}
+          echo ${{ secrets.ANSIBLE_SSH_PUBLIC_KEY }}
+
           
