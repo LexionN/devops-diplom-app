@@ -10,3 +10,4 @@ jobs:
         run: |
           echo ${{ secrets.TF_VAR_access_key }}
           echo ${{ secrets.TF_VAR_secret_key }}
+          
