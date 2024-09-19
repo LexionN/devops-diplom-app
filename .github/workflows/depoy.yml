@@ -1,0 +1,25 @@
+name: Reveal secrets
+on: 
+
+name: Docker Image CI
+on: workflow_dispatch
+#on:
+#  push:
+#    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and push Docker image with tag
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: cr.yandex/crpo2trbmev3k5pj4n1i/nginx:${{ github.ref_name }}
+    - name: Build and push Docker image with latest
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: cr.yandex/crpo2trbmev3k5pj4n1i/nginx:latest
