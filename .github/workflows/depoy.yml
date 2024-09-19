@@ -1,6 +1,3 @@
-name: Reveal secrets
-on: 
-
 name: Docker Image CI
 on: workflow_dispatch
 #on:
