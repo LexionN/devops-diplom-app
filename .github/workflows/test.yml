@@ -1,22 +1,21 @@
-name: Transfer Secret
+name: Use Secret from Another Repo
 
 on:
   workflow_dispatch:
 
 jobs:
-  transfer-secret:
+  use-secret:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source repo
-        uses: actions/checkout@v2
-        with:
-          repository: LexionN/devops-diplom
-          token: ${{ secrets.TOKEN }}
-
       - name: Get secret from source repo
         id: get-secret
         run: |
-          SECRET_VALUE=$(gh secret get TF_VAR_DEFAULT_ZONE --repo LexionN/devops-diplom)
-          echo "SECRET_VALUE=${SECRET_VALUE}" >> $GITHUB_ENV
+          SECRET_VALUE=$(curl -s -H "Authorization: token ${{ secrets.TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/LexionN/devops-diplom/actions/secrets/TF_VAR_DEFAULT_ZONE)
+          echo "SECRET_VALUE=$(echo $SECRET_VALUE | jq -r .value)" >> $GITHUB_ENV
 
+      - name: Use the secret
+        run: |
+          echo "Using secret: ${{ env.SECRET_VALUE }}"
