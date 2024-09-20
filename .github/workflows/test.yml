@@ -23,7 +23,7 @@ jobs:
 
     - name: Get secret from devops-diplom
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Ваш токен доступа
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}  # Ваш токен доступа
       run: |
         SECRET_NAME="TF_VAR_DEFAULT_ZONE"
         SECRET_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
