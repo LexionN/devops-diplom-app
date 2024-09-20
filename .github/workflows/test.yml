@@ -18,4 +18,4 @@ jobs:
 
     - name: Setup kubeconfig
       run: |
-        echo "${{ secrets.KUBECONFIG }}"
+        echo "${{ secrets.TF_VAR_DEFAULT_ZONE }}"
