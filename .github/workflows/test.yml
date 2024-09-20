@@ -22,5 +22,8 @@ jobs:
         path: 'devops-diplom'
 
     - name: Setup kubeconfig
+      env:
+        TF_VAR_DEFAULT_ZONE: ${{ secrets.TF_VAR_DEFAULT_ZONE }}  # Передача секрета как переменной окружения
       run: |
-        echo "${{ secrets.TF_VAR_DEFAULT_ZONE }}"
+        echo "${TF_VAR_DEFAULT_ZONE}"  # Теперь переменная должна выводиться корректно
+      
