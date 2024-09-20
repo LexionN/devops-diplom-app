@@ -1,0 +1,21 @@
+name: Deploy to Kubernetes
+
+on: workflow_dispatch
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Checkout diplom-devops repo
+      uses: actions/checkout@v2
+      with:
+        repository: 'LexionN/diplom-devops'
+        path: 'diplom-devops'
+
+    - name: Setup kubeconfig
+      run: |
+        echo "${{ secrets.KUBECONFIG }}"
