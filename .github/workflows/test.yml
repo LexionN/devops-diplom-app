@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: 'LexionN/diplom-devops'
-        path: 'diplom-devops'
+     #   path: 'diplom-devops'
 
     - name: Setup kubeconfig
       run: |
