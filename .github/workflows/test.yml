@@ -13,7 +13,7 @@ jobs:
     - name: Setup GitHub Token
       run: |
         git config --global credential.helper 'store --file ~/.git-credentials'
-        echo "https://${{ secrets.Diplom-token }}:@github.com" > ~/.git-credentials
+        echo "https://${{ secrets.TOKEN }}:@github.com" > ~/.git-credentials
     
     - name: Checkout diplom-devops repo
       uses: actions/checkout@v2
