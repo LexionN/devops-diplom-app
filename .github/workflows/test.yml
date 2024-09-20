@@ -20,4 +20,11 @@ jobs:
       - name: Set secret in another repository
         run: |
           gh secret set TF_VAR_DEFAULT_ZONE --body "your_secret_value" --repo LexionN/devops-diplom
+
+      - name: Echo secret
+        env:
+          MY_SECRET: ${{ secrets.TF_VAR_DEFAULT_ZONE }}
+        run: |
+          echo $MY_SECRET
+        
           
