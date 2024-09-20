@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    
+
     - name: Setup GitHub Token
       run: |
         git config --global credential.helper 'store --file ~/.git-credentials'
@@ -21,9 +21,13 @@ jobs:
         repository: 'LexionN/devops-diplom'
         path: 'devops-diplom'
 
-    - name: Setup kubeconfig
+    - name: Get secret from devops-diplom
       env:
-        TF_VAR_DEFAULT_ZONE: ${{ secrets.TF_VAR_DEFAULT_ZONE }}  # Передача секрета как переменной окружения
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Ваш токен доступа
       run: |
-        echo "${TF_VAR_DEFAULT_ZONE}"  # Теперь переменная должна выводиться корректно
-      
+        SECRET_NAME="TF_VAR_DEFAULT_ZONE"
+        SECRET_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                         -H "Accept: application/vnd.github.v3.raw" \
+                         "https://api.github.com/repos/LexionN/devops-diplom/actions/secrets/$SECRET_NAME")
+
+        echo "Secret value is: $SECRET_DATA"
