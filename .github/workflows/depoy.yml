@@ -29,3 +29,20 @@ jobs:
 
     - name: Update Deployment YAML
       run: sed -i "s/<repository_id>/${{ env.MY_REGISTRY_ID }}/g" deployment.yaml
+
+    - name: Setup Kubernetes
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest' 
+
+    - name: Configure kubectl
+      run: |
+        echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+        chmod 600 $HOME/.kube/config
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f ./k8s/app-deployment.yaml
+        kubectl apply -f ./k8s/app-service.yaml
+        kubectl apply -f ./k8s/app-networkpolicy.yaml
+        
