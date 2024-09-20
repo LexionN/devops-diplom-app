@@ -21,6 +21,6 @@ spec:
     spec:
       containers:
       - name: diplom-devops-app
-        image: cr.yandex/crpo2trbmev3k5pj4n1i/nginx:latest
+        image: cr.yandex/<repository-id>/nginx:latest
         ports:
         - containerPort: 80
