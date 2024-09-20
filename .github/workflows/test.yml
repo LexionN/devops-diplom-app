@@ -1,21 +1,23 @@
-name: Deploy to Kubernetes
+name: Transfer Secrets
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+
 jobs:
   transfer:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up GitHub CLI
+      - name: Install GitHub CLI
         run: |
           sudo apt-get install gh
 
       - name: Login to GitHub
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          PAT: ${{ secrets.TOKEN }}  # Ваш токен доступа
         run: |
-          echo "$GITHUB_TOKEN" | gh auth login --with-token
+          echo "$PAT" | gh auth login --with-token
 
       - name: Set secret in another repository
         run: |
-          gh secret set TF_VAR_DEFAULT_ZONE --body "your_secret_value" --repo LexionN/devops-diplom  
-          echo "Secret value is: $secret.TF_VAR_DEFAULT_ZONE"
+          gh secret set TF_VAR_DEFAULT_ZONE --body "your_secret_value" --repo LexionN/devops-diplom
+          
