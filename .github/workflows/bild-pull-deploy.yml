@@ -37,12 +37,13 @@ jobs:
 
     - name: Configure kubectl
       run: |
-        echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
-        chmod 600 $HOME/.kube/config
+        echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > config
+        chmod 600 config
+
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl --insecure-skip-tls-verify apply -f ./k8s/app-deployment.yml
-        kubectl --insecure-skip-tls-verify apply -f ./k8s/app-service.yml
-        kubectl --insecure-skip-tls-verify apply -f ./k8s/app-networkpolicy.yml
+        kubectl --kubeconfig=config --insecure-skip-tls-verify apply -f ./k8s/app-deployment.yml
+        kubectl --kubeconfig=config --insecure-skip-tls-verify apply -f ./k8s/app-service.yml
+        kubectl --kubeconfig=config --insecure-skip-tls-verify apply -f ./k8s/app-networkpolicy.yml
         
