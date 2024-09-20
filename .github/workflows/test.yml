@@ -13,7 +13,7 @@ jobs:
         run: |
           SECRET_VALUE=$(curl -s -H "Authorization: token ${{ secrets.TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/LexionN/devops-diplom/actions/secrets/TF_VAR_DEFAULT_ZONE)
+            https://api.github.com/repos/LexionN/devops-diplom/actions/secrets/TF_VAR_FOLDER_ID)
           echo "SECRET_VALUE=$(echo $SECRET_VALUE | jq -r .value)" >> $GITHUB_ENV
 
       - name: Use the secret
