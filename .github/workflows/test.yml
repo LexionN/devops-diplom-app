@@ -1,30 +1,22 @@
-name: Transfer Secrets
+name: Transfer Secret
 
 on:
   workflow_dispatch:
 
 jobs:
-  transfer:
+  transfer-secret:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Install GitHub CLI
-        run: |
-          sudo apt-get install gh
+      - name: Checkout source repo
+        uses: actions/checkout@v2
+        with:
+          repository: owner/source-repo
+          token: ${{ secrets.TOKEN }}
 
-      - name: Login to GitHub
-        env:
-          PAT: ${{ secrets.TOKEN }}  # Ваш токен доступа
+      - name: Get secret from source repo
+        id: get-secret
         run: |
-          echo "$PAT" | gh auth login --with-token
+          SECRET_VALUE=$(gh secret get TF_VAR_DEFAULT_ZONE --repo LexionN/devops-diplom)
+          echo "SECRET_VALUE=${SECRET_VALUE}" >> $GITHUB_ENV
 
-      - name: Set secret in another repository
-        run: |
-          gh secret set TF_VAR_DEFAULT_ZONE --body "your_secret_value" --repo LexionN/devops-diplom
-
-      - name: Echo secret
-        env:
-          MY_SECRET: ${{ secrets.TF_VAR_DEFAULT_ZONE }}
-        run: |
-          echo $MY_SECRET
-        
-          
