@@ -22,5 +22,4 @@ jobs:
         tags: cr.yandex/${{ secrets.MY_REPOSITORY_ID }}/nginx:latest
 
     - name: Update Deployment YAML
-      run: |
-        sed -i "s/<repository_id>/${{ secrets.MY_REGISTRY_ID }}/g" deployment.yaml
+      run: sed -i "s/<repository_id>/${{ secrets.MY_REGISTRY_ID }}/g" deployment.yaml
