@@ -18,13 +18,7 @@ jobs:
         context: .
         push: true
         tags: cr.yandex/${{ env.MY_REGISTRY_ID }}/nginx:${{ github.ref_name }}
-    - name: Build and push Docker image with latest
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: cr.yandex/${{ env.MY_REGISTRY_ID }}/nginx:latest
-
+    
     - name: Update Deployment YAML
       run: sed -i "s/<repository_id>/${{ env.MY_REGISTRY_ID }}/g" ./k8s/app-deployment.yml
 
