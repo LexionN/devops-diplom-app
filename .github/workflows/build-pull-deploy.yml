@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build and push Docker image with tag
-      uses: docker/build-push-action@v6.5
+      uses: docker/build-push-action@v6
       with:
         context: .
         push: true
