@@ -17,7 +17,9 @@ jobs:
       with:
         context: .
         push: true
-        tags: cr.yandex/${{ env.MY_REGISTRY_ID }}/nginx:${{ github.ref_name }}
+        tags: |
+          cr.yandex/${{ env.MY_REGISTRY_ID }}/nginx:${{ github.ref_name }}
+          cr.yandex/${{ env.MY_REGISTRY_ID }}/nginx:latest
     
     - name: Update Deployment YAML
       run: |
