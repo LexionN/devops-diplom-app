@@ -21,8 +21,8 @@ jobs:
     
     - name: Update Deployment YAML
       run: |
-        sed -i "s/<repository_id>/${{ env.MY_REGISTRY_ID }}/g" ./k8s/app-deployment.yml
-        sed -i "s/latest/${{ github.ref_name }}/g" ./k8s/app-deployment.yml
+        sed -i "s/\<repository_id\>/${{ env.MY_REGISTRY_ID }}/g" ./k8s/app-deployment.yml
+        sed -i "s/\:latest/\:${{ github.ref_name }}/g" ./k8s/app-deployment.yml
 
     - name: Setup Kubernetes
       uses: azure/setup-kubectl@v1
