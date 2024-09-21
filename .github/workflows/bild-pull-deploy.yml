@@ -1,11 +1,9 @@
 name: Docker Image CI
-#on:
-#  push:
-#    tags:
-#      - '*'
-
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
 env:
   MY_REGISTRY_ID: ${{ secrets.MY_REGISTRY_ID }}
 
